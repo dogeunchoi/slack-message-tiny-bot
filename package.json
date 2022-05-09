@@ -12,6 +12,9 @@
     "type": "git",
     "url": "git+https://github.com/dogeunchoi/slack-message-tiny-bot.git"
   },
+  "bugs": {
+    "url": "https://github.com/dogeunchoi/slack-message-tiny-bot/issues"
+  },
   "devDependencies": {
     "@types/jest": "~27.4",
     "@types/node": "~16.11",
