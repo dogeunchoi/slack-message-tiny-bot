@@ -2,8 +2,8 @@
   "name": "slack-message-tiny-bot",
   "version": "0.0.5",
   "description": "",
-  "main": "build/main.js",
-  "types": "build/main.d.ts",
+  "main": "build/src/main.js",
+  "types": "build/src/main.d.ts",
   "type": "module",
   "engines": {
     "node": ">= 16.13 <17"
