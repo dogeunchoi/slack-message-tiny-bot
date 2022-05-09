@@ -1,8 +1,9 @@
 # install
 `npm install slack-message-tiny-bot --save`
 
-# configure
-make .env file
-
-## sample env
-WEBHOOKS=https://hooks.slack.com/services/SLACK_BOT_WEBHOOK
+# usages
+```javascript
+const bot = new SlackMessageTinyBot();
+bot.appendWebhooks("WEBHOOKS=https://hooks.slack.com/services/MY_SLACK_WEBHOOK_URL");
+bot.sendMessage({ webhookIndexOrUrl: 0, message: 'test' }).then(result => {});
+```
