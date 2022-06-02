@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "ES2020",
-    "lib": ["ES2020"],
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["es6"],
     "declaration": true,
     "moduleResolution": "node",
     "rootDir": ".",
@@ -14,13 +14,11 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noImplicitAny": false,
     "noImplicitThis": false,
     "strictNullChecks": false
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*", "__tests__/**/*"]
 }

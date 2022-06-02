@@ -3,7 +3,18 @@
 
 # usages
 ```javascript
-const bot = new SlackMessageTinyBot();
-bot.appendWebhooks("https://hooks.slack.com/services/MY_SLACK_WEBHOOK_URL");
-bot.sendMessage({ webhookIndexOrUrl: 0, message: 'test' }).then(result => {});
+const _bot = new SlackMessageTinyBot();
+
+_bot.appendBot({
+slackWebhookUrl: 'https://hooks.slack.com/services/MY_SLACK_WEBHOOK_URL',
+telegramBot: {
+    botToken: 'my telegram bot token',
+    chatId: 'my chat id',
+},
+});
+
+_bot.sendMessage({
+botIndex: 1,
+message: 'test',
+}).catch(() => {});
 ```

@@ -1,23 +1,65 @@
 import axios from 'axios';
 
 export default class SlackMessageTinyBot {
-  private _webhooks: string[] = [];
+  private _slackWebhooks: string[] = [];
+  private _telegramBots: {
+    botToken: string;
+    chatId: string;
+  }[] = [];
 
-  appendWebhooks(webhookUrl: string) {
-    this._webhooks.push(webhookUrl);
+  appendBot(bot: {
+    slackWebhookUrl?: string;
+    telegramBot?: {
+      botToken: string;
+      chatId: string;
+    };
+  }) {
+    this._slackWebhooks.push(bot.slackWebhookUrl || '');
+    this._telegramBots.push(
+      bot.telegramBot || {
+        botToken: '',
+        chatId: '',
+      },
+    );
   }
 
-  async sendMessage(options: {
-    webhookIndexOrUrl: number | string;
-    message: string;
-  }) {
-    const url =
-      typeof options.webhookIndexOrUrl === 'number'
-        ? this._webhooks[options.webhookIndexOrUrl]
-        : options.webhookIndexOrUrl;
+  async sendMessage(options: { botIndex: number; message: string }) {
+    const promises: Promise<any>[] = [];
 
-    return await axios.post(url, {
-      text: options.message,
-    });
+    // for slack
+    if (this._slackWebhooks[options.botIndex]) {
+      promises.push(
+        axios.post(this._slackWebhooks[options.botIndex], {
+          text: options.message,
+        }),
+      );
+    }
+
+    // for telegram
+    if (
+      this._telegramBots[options.botIndex].botToken &&
+      this._telegramBots[options.botIndex].chatId
+    ) {
+      promises.push(
+        axios.get(
+          `https://api.telegram.org/bot${
+            this._telegramBots[options.botIndex].botToken
+          }/sendMessage`,
+          {
+            params: {
+              chat_id: this._telegramBots[options.botIndex].chatId,
+              parse_mode: 'markdown',
+              text: options.message,
+            },
+          },
+        ),
+      );
+    }
+
+    try {
+      await Promise.all(promises);
+    } catch {
+      // do not anythings
+    }
   }
 }
